@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_puzzle/additional/puzzle_provider.dart';
 import 'package:flutter_puzzle/pages/flutter_const_layout/tile.dart';
-import 'package:flutter_puzzle/pages/homepage/widgets/medium_screen_size.dart';
+import 'package:flutter_puzzle/pages/homepage/widgets/medium_screen/medium_screen_size.dart';
+import 'package:flutter_puzzle/pages/homepage/widgets/puzzle_body/puzzle_body_layout.dart';
 import 'package:provider/provider.dart';
 
 class NormalScreenSize extends StatefulWidget {
@@ -58,27 +59,17 @@ class _NormalScreenSizeState extends State<NormalScreenSize> {
               children: [
                 Text(
                   context.watch<PuzzleProvider>().moves.toString(),
-                  // todo get data and link
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.indigo,
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => const MediumScreenSize()));
-                  },
-                  child: const Text(
-                    ' Moves ',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.indigo,
-                    ),
+                const Text(
+                  ' Moves ',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.indigo,
                   ),
                 ),
                 const SizedBox(
@@ -88,9 +79,9 @@ class _NormalScreenSizeState extends State<NormalScreenSize> {
                     thickness: 2,
                   ),
                 ),
-                const Text(
-                  ' 15', // todo get data and link
-                  style: TextStyle(
+                Text(
+                  '${context.watch<PuzzleProvider>().completed}', // todo get data and link completed
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.indigo,
@@ -110,24 +101,15 @@ class _NormalScreenSizeState extends State<NormalScreenSize> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                ),
-                itemCount: 15,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return Tile(text: '${index+1}');
-                },
-              ),
+              child: PuzzleBodyLayout(size: Size(0,0) )
             ),
             ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)
-                )
-              ),
-                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20))),
+                onPressed: () {
+                  context.read<PuzzleProvider>().shuffleNumbers();
+                },
                 icon: const Icon(Icons.loop),
                 label: const Text(
                   'Shuffle',

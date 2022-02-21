@@ -1,13 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_puzzle/pages/homepage/widgets/normal_screen_size.dart';
-import 'package:flutter_puzzle/pages/homepage/widgets/large_screen_size.dart';
-import 'package:flutter_puzzle/pages/homepage/widgets/medium_screen_size.dart';
+import 'package:flutter_puzzle/additional/puzzle_provider.dart';
+import 'package:flutter_puzzle/pages/homepage/widgets/large_screen/large_screen_size.dart';
+import 'package:flutter_puzzle/pages/homepage/widgets/medium_screen/medium_screen_size.dart';
+import 'package:flutter_puzzle/pages/homepage/widgets/normal_screen/normal_screen_size.dart';
 import 'package:flutter_puzzle/pages/responsive_builder/responsive_page_builder.dart';
 import 'package:provider/provider.dart';
-
-import '../../additional/puzzle_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,10 +17,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      context.read<PuzzleProvider>().increase();
-    });
     super.initState();
+    context.read<PuzzleProvider>().numbers.shuffle();
   }
 
   @override

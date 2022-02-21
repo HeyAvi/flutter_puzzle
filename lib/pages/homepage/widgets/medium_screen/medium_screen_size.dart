@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_puzzle/additional/puzzle_provider.dart';
+import 'package:flutter_puzzle/pages/homepage/widgets/puzzle_body/puzzle_body_layout.dart';
 import 'package:provider/provider.dart';
 
 class MediumScreenSize extends StatefulWidget {
@@ -15,9 +16,7 @@ class _MediumScreenSizeState extends State<MediumScreenSize> {
     return Consumer<PuzzleProvider>(builder: (BuildContext context, value, Widget? child) {
       return Scaffold(
         body: Center(
-          child: Text(
-            value.moves.toString()
-          ),
+          child: PuzzleBodyLayout(size: Size(0, 0),)
         ),
       );
     },);
